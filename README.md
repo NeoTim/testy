@@ -4,6 +4,7 @@
 # Github
 user： codeview3 
 pwd： BkTest88
+repo: CodeView3/testy
 
 # MySQL
 
