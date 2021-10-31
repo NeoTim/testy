@@ -1,22 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Tencent is pleased to support the open source community by making 蓝鲸智云PaaS平台社区版 (BlueKing PaaS Community
-Edition) available.
-Copyright (C) 2017-2020 THL A29 Limited, a Tencent company. All rights reserved.
-Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-http://opensource.org/licenses/MIT
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
-an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
-"""
-
-import re
-
-from six.moves.html_parser import HTMLParser
-
-
-"""
 Python 富文本XSS过滤类
 @package XssHtml
 @version 0.1
@@ -33,92 +16,49 @@ Usage:
     parser = XssHtml()
     parser.feed('<html code>')
     parser.close()
-    html = parser.get_html()
+    html = parser.getHtml()
     print html
 Requirements
 Python 2.6+ or 3.2+
 Cannot defense xss in browser which is belowed IE7
 浏览器版本：IE7+ 或其他浏览器，无法防御IE6及以下版本浏览器中的XSS
 """
+import re
+from HTMLParser import HTMLParser
 
 
 class XssHtml(HTMLParser):
-    allow_tags = [
-        "a",
-        "img",
-        "br",
-        "strong",
-        "b",
-        "code",
-        "pre",
-        "p",
-        "div",
-        "em",
-        "span",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "blockquote",
-        "ul",
-        "ol",
-        "tr",
-        "th",
-        "td",
-        "hr",
-        "li",
-        "u",
-        "embed",
-        "s",
-        "table",
-        "thead",
-        "tbody",
-        "caption",
-        "small",
-        "q",
-        "sup",
-        "sub",
-    ]
+    allow_tags = ['a', 'img', 'br', 'strong', 'b', 'code', 'pre',
+                  'p', 'div', 'em', 'span', 'h1', 'h2', 'h3', 'h4',
+                  'h5', 'h6', 'blockquote', 'ul', 'ol', 'tr', 'th', 'td',
+                  'hr', 'li', 'u', 'embed', 's', 'table', 'thead', 'tbody',
+                  'caption', 'small', 'q', 'sup', 'sub']
     common_attrs = ["id", "style", "class", "name"]
     nonend_tags = ["img", "hr", "br", "embed"]
     tags_own_attrs = {
         "img": ["src", "width", "height", "alt", "align"],
         "a": ["href", "target", "rel", "title"],
-        "embed": [
-            "src",
-            "width",
-            "height",
-            "type",
-            "allowfullscreen",
-            "loop",
-            "play",
-            "wmode",
-            "menu",
-        ],
+        "embed": ["src", "width", "height", "type", "allowfullscreen", "loop", "play", "wmode", "menu"],
         "table": ["border", "cellpadding", "cellspacing"],
     }
 
-    def __init__(self, allows=None):
+    def __init__(self, allows=[]):
         HTMLParser.__init__(self)
-        if allows is None:
-            allows = []
         self.allow_tags = allows if allows else self.allow_tags
         self.result = []
         self.start = []
         self.data = []
 
-    def get_html(self):
+    def getHtml(self):
         """
         Get the safe html code
         """
         for i in range(0, len(self.result)):
-            tmp = self.result[i].rstrip("\n")
-            tmp = tmp.lstrip("\n")
+            tmp = self.result[i].rstrip('\n')
+            tmp = tmp.lstrip('\n')
             if tmp:
                 self.data.append(tmp)
-        return "".join(self.data)
+        return ''.join(self.data)
 
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)
@@ -126,7 +66,7 @@ class XssHtml(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag not in self.allow_tags:
             return
-        end_diagonal = " /" if tag in self.nonend_tags else ""
+        end_diagonal = ' /' if tag in self.nonend_tags else ''
         if not end_diagonal:
             self.start.append(tag)
         attdict = {}
@@ -141,13 +81,13 @@ class XssHtml(HTMLParser):
 
         attrs = []
         for (key, value) in attdict.items():
-            attrs.append('{}="{}"'.format(key, self.__htmlspecialchars(value)))
-        attrs = (" " + " ".join(attrs)) if attrs else ""
-        self.result.append("<" + tag + attrs + end_diagonal + ">")
+            attrs.append('%s="%s"' % (key, self.__htmlspecialchars(value)))
+        attrs = (' ' + ' '.join(attrs)) if attrs else ''
+        self.result.append('<' + tag + attrs + end_diagonal + '>')
 
     def handle_endtag(self, tag):
         if self.start and tag == self.start[len(self.start) - 1]:
-            self.result.append("</" + tag + ">")
+            self.result.append('</' + tag + '>')
             self.start.pop()
 
     def handle_data(self, data):
@@ -169,23 +109,22 @@ class XssHtml(HTMLParser):
         attrs = self.__common_attr(attrs)
         attrs = self.__get_link(attrs, "href")
         attrs = self.__set_attr_default(attrs, "target", "_blank")
-        attrs = self.__limit_attr(attrs, {"target": ["_blank", "_self"]})
+        attrs = self.__limit_attr(attrs, {
+            "target": ["_blank", "_self"]
+        })
         return attrs
 
     def node_embed(self, attrs):
         attrs = self.__common_attr(attrs)
         attrs = self.__get_link(attrs, "src")
-        attrs = self.__limit_attr(
-            attrs,
-            {
-                "type": ["application/x-shockwave-flash"],
-                "wmode": ["transparent", "window", "opaque"],
-                "play": ["true", "false"],
-                "loop": ["true", "false"],
-                "menu": ["true", "false"],
-                "allowfullscreen": ["true", "false"],
-            },
-        )
+        attrs = self.__limit_attr(attrs, {
+            "type": ["application/x-shockwave-flash"],
+            "wmode": ["transparent", "window", "opaque"],
+            "play": ["true", "false"],
+            "loop": ["true", "false"],
+            "menu": ["true", "false"],
+            "allowfullscreen": ["true", "false"]
+        })
         attrs["allowscriptaccess"] = "never"
         attrs["allownetworking"] = "none"
         return attrs
@@ -219,7 +158,7 @@ class XssHtml(HTMLParser):
         else:
             other = []
         if attrs:
-            for (key, _) in list(attrs.items()):
+            for (key, value) in attrs.items():
                 if key not in self.common_attrs + other:
                     del attrs[key]
         return attrs
@@ -228,36 +167,30 @@ class XssHtml(HTMLParser):
         attrs = self.__get_style(attrs)
         return attrs
 
-    def __set_attr_default(self, attrs, name, default=""):
+    def __set_attr_default(self, attrs, name, default=''):
         if name not in attrs:
             attrs[name] = default
         return attrs
 
-    def __limit_attr(self, attrs, limit=None):
-        if limit is None:
-            limit = {}
+    def __limit_attr(self, attrs, limit={}):
         for (key, value) in limit.items():
             if key in attrs and attrs[key] not in value:
                 del attrs[key]
         return attrs
 
     def __htmlspecialchars(self, html):
-        return (
-            html.replace("<", "&lt;")
-            .replace(">", "&gt;")
-            .replace('"', "&quot;")
+        return html.replace("<", "&lt;")\
+            .replace(">", "&gt;")\
+            .replace('"', "&quot;")\
             .replace("'", "&#039;")
-        )
 
 
 if "__main__" == __name__:
     parser = XssHtml()
-    parser.feed(
-        """<p><img src=1 onerror=alert(/xss/)></p><div class="left">
+    parser.feed("""<p><img src=1 onerror=alert(/xss/)></p><div class="left">
         <a href='javascript:prompt(1)'><br />hehe</a></div>
         <p id="test" onmouseover="alert(1)">&gt;M<svg>
         <a href="https://www.baidu.com" target="self">MM</a></p>
-        <embed src='javascript:alert(/hehe/)' allowscriptaccess=always />"""
-    )
+        <embed src='javascript:alert(/hehe/)' allowscriptaccess=always />""")
     parser.close()
-    print(parser.get_html())
+    print(parser.getHtml())

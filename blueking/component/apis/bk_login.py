@@ -18,6 +18,11 @@ class CollectionsBkLogin(object):
             path='/api/c/compapi{bk_api_ver}/bk_login/get_batch_users/',
             description=u'批量获取用户信息'
         )
+        self.get_batch_users_platform_role = ComponentAPI(
+            client=self.client, method='POST',
+            path='/api/c/compapi{bk_api_ver}/bk_login/get_batch_users_platform_role/',
+            description=u'批量获取用户各平台角色信息'
+        )
         self.get_user = ComponentAPI(
             client=self.client, method='GET',
             path='/api/c/compapi{bk_api_ver}/bk_login/get_user/',
@@ -32,4 +37,9 @@ class CollectionsBkLogin(object):
             client=self.client, method='GET',
             path='/api/c/compapi{bk_api_ver}/bk_login/get_batch_user/',
             description=u'获取多个用户信息'
+        )
+        self.get_batch_user_platform_role = ComponentAPI(
+            client=self.client, method='GET',
+            path='/api/c/compapi{bk_api_ver}/bk_login/get_batch_user_platform_role/',
+            description=u'获取多个用户在平台应用的角色'
         )

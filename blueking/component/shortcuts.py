@@ -16,12 +16,10 @@ def get_client_by_request(request, **kwargs):
     """根据当前请求返回一个client
 
     :param request: 一个django request实例
-    :returns: 一个初始化好的ComponentClient对象
+    :returns: 一个初始化好的ComponentClint对象
     """
-    is_authenticated = request.user.is_authenticated
-    if callable(is_authenticated):
-        is_authenticated = is_authenticated()
-    if is_authenticated:
+
+    if request.user.is_authenticated():
         bk_token = request.COOKIES.get('bk_token', '')
     else:
         bk_token = ''
@@ -37,7 +35,7 @@ def get_client_by_user(user, **kwargs):
     """根据user实例返回一个client
 
     :param user: User实例或者User.username数据
-    :returns: 一个初始化好的ComponentClient对象
+    :returns: 一个初始化好的ComponentClint对象
     """
     try:
         from account.models import BkUser as User

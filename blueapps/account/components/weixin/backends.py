@@ -1,28 +1,17 @@
 # -*- coding: utf-8 -*-
-"""
-Tencent is pleased to support the open source community by making 蓝鲸智云PaaS平台社区版 (BlueKing PaaS Community
-Edition) available.
-Copyright (C) 2017-2020 THL A29 Limited, a Tencent company. All rights reserved.
-Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-http://opensource.org/licenses/MIT
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
-an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
-"""
-
 import logging
 
 from django.contrib.auth.backends import ModelBackend
 
+from blueapps.account.utils.http import send
 from blueapps.account import get_user_model
 from blueapps.account.conf import ConfFixture
-from blueapps.account.utils.http import send
 
-logger = logging.getLogger("component")
+logger = logging.getLogger('component')
 
 
 class WeixinBackend(ModelBackend):
+
     def authenticate(self, request=None, code=None, is_wechat=True):
         """
         is_wechat 参数是为了使得 WeixinBackend 与其他 Backend 参数个数不同，在框架选择
@@ -33,18 +22,21 @@ class WeixinBackend(ModelBackend):
             return None
 
         result, user_info = self.verify_weixin_code(code)
-        logger.debug(u"微信 CODE 验证结果，result：{}，user_info：{}".format(result, user_info))
+        logger.debug(u"微信 CODE 验证结果，result：%s，user_info：%s" % (
+            result, user_info)
+        )
 
         if not result:
             return None
 
         user_model = get_user_model()
         try:
-            user, _ = user_model.objects.get_or_create(username=user_info["username"])
-            user.nickname = user_info["username"]
-            user.avatar_url = user_info["avatar"]
+            user, _ = user_model.objects.get_or_create(
+                username=user_info['username'])
+            user.nickname = user_info['username']
+            user.avatar_url = user_info['avatar']
             user.save()
-        except Exception:  # pylint: disable=broad-except
+        except Exception:
             logger.exception(u"自动创建 & 更新 User Model 失败")
         else:
             return user
@@ -70,18 +62,17 @@ class WeixinBackend(ModelBackend):
             }
         """
         api_params = {
-            "code": code,
+            'code': code,
         }
         try:
-            response = send(ConfFixture.WEIXIN_INFO_URL, "GET", api_params)
-            ret = response.get("ret")
+            response = send(ConfFixture.WEIXIN_INFO_URL, 'GET', api_params)
+            ret = response.get('ret')
             if ret == 0:
-                return True, response["data"]
+                return True, response['data']
             else:
-                logger.error(
-                    u"通过微信授权码，获取用户信息失败，error={}，ret={}".format(response["msg"], ret)
-                )
+                logger.error(u"通过微信授权码，获取用户信息失败，error=%s，ret=%s" % (
+                    response['msg'], ret))
                 return False, None
-        except Exception:  # pylint: disable=broad-except
+        except Exception:
             logger.exception(u"通过微信授权码，获取用户信息异常")
             return False, None
