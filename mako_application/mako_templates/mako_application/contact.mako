@@ -1,51 +1,53 @@
+<%! from django.utils.translation import ugettext as _ %>
 <%inherit file="/base.mako"/>
 
 <%block name='head'>
-	<title>蓝鲸开发框架</title>
+	<title>${ _("蓝鲸开发框架")}</title>
 	${parent.head()}
-	
+
 </%block>
 
 <%block name="content">
-	<style>
-		.dataclass h4{
-			font-size: 16px;
-			font-weight: 400;
-			color: #555555;
-			border-top: 1px solid #c6cdd3;
-			background: #f4f5f8;
-			height: 35px;
-			line-height: 35px;
-			padding-left: 15px;
-		}
-		.dataclass h4 .no-num {
-			background: #44B549;
-			color: #fff;
-			width: 35px;
-			text-align: center;
-			display: inline-block;
-			height: 35px;
-			margin-left: -15px;
-			margin-right: 10px;
-			margin-top: -1px;
-			font-style:normal;
-			vertical-align: top;
-			float: left;
-		}
-		.wm {
-			border: 1px solid #5898d7;
-			padding: 20px 20px 20px 10px;
-			line-height:2;
-		}
-	</style>
-	<div data-spy="scroll" class="dataclass" style="overflow-y:auto;position: relative;padding:10px;margin-bottom: 40px">
-		<h4 id="install_eo"><i class="no-num">1</i>RTX</h4>
-		<div class="mt10 mb20 wm">
-			<strong>RTX: </strong>BK助手(蓝鲸助手)<br>
-		</div>
-		<h4 id="install_eo"><i class="no-num">2</i>KM</h4>
-		<div class="mt10 mb20 wm">
-		</div>
-	</div>
-</%block>
+    <style type="text/css">
+        #footer{
+            position: relative;
+            bottom: -40px;
+        }
+    </style>
+    <div class="page-contactus">
+        <!-- 内容 start-->
+        <!--comtactus-detail -->
+        <div class="container" >
+            <div class="tc" id="contactus">
+                <div class="weixin-img-arrow">
+                    <div>
+                        <img class="weixin-img " src="${STATIC_URL}open/img/weixin_icom.png">
+                    </div>
+                    <p>${ _("关注我们")}</p>
+                </div>
+                <div class="comtactus-way-arrow tc mt50">
+                    <div class="dbi border-right tc" style="width: 280px; padding-left: 60px">
+                        <div class="img-arrow">
+                            <img  class="" src="${STATIC_URL}open/img/icom_01.png">
+                        </div>
+                        <p class="mt20">${ _("深圳市南山区腾讯大厦")}</p>
+                    </div>
+                    <div class="dbi border-right tc" style="width: 180px">
+                        <div class="img-arrow">
+                            <img src="${STATIC_URL}open/img/icom_02.png">
+                        </div>
+                        <p class="mt20">${ _("企业QQ：800802001")}</p>
+                    </div>
+                    <div class="dbi tc" style="width: 280px">
+                        <div class="img-arrow">
+                            <img src="${STATIC_URL}open/img/icom_03.png">
+                        </div>
+                        <p class="mt20">${ _("邮箱：contactus_bk@tencent.com")}</p>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <!-- 内容 start-->
+    </div>
+</%block>

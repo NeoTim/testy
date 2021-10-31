@@ -8,6 +8,11 @@ class CollectionsCMSI(object):
     def __init__(self, client):
         self.client = client
 
+        self.get_msg_type = ComponentAPI(
+            client=self.client, method='GET',
+            path='/api/c/compapi{bk_api_ver}/cmsi/get_msg_type/',
+            description=u'查询消息发送类型'
+        )
         self.send_mail = ComponentAPI(
             client=self.client, method='POST',
             path='/api/c/compapi{bk_api_ver}/cmsi/send_mail/',
@@ -17,6 +22,11 @@ class CollectionsCMSI(object):
             client=self.client, method='POST',
             path='/api/c/compapi{bk_api_ver}/cmsi/send_mp_weixin/',
             description=u'发送公众号微信消息'
+        )
+        self.send_msg = ComponentAPI(
+            client=self.client, method='POST',
+            path='/api/c/compapi{bk_api_ver}/cmsi/send_msg/',
+            description=u'通用消息发送'
         )
         self.send_qy_weixin = ComponentAPI(
             client=self.client, method='POST',

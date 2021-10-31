@@ -53,6 +53,11 @@ class CollectionsJOB(object):
             path='/api/c/compapi{bk_api_ver}/job/get_own_db_account_list/',
             description=u'查询用户有权限的DB帐号列表'
         )
+        self.get_public_script_list = ComponentAPI(
+            client=self.client, method='POST',
+            path='/api/c/compapi{bk_api_ver}/job/get_public_script_list/',
+            description=u'查询公共脚本列表'
+        )
         self.get_script_detail = ComponentAPI(
             client=self.client, method='GET',
             path='/api/c/compapi{bk_api_ver}/job/get_script_detail/',
@@ -62,6 +67,11 @@ class CollectionsJOB(object):
             client=self.client, method='GET',
             path='/api/c/compapi{bk_api_ver}/job/get_script_list/',
             description=u'查询脚本列表'
+        )
+        self.get_step_instance_status = ComponentAPI(
+            client=self.client, method='POST',
+            path='/api/c/compapi{bk_api_ver}/job/get_step_instance_status/',
+            description=u'查询作业步骤的执行状态'
         )
         self.update_cron_status = ComponentAPI(
             client=self.client, method='POST',

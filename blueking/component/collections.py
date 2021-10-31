@@ -5,8 +5,10 @@ from .apis.bk_paas import CollectionsBkPaas
 from .apis.cc import CollectionsCC
 from .apis.cmsi import CollectionsCMSI
 from .apis.gse import CollectionsGSE
+from .apis.itsm import CollectionsITSM
 from .apis.job import CollectionsJOB
 from .apis.sops import CollectionsSOPS
+from .apis.usermanage import CollectionsUSERMANAGE
 
 
 # Available components
@@ -16,6 +18,8 @@ AVAILABLE_COLLECTIONS = {
     'cc': CollectionsCC,
     'cmsi': CollectionsCMSI,
     'gse': CollectionsGSE,
+    'itsm': CollectionsITSM,
     'job': CollectionsJOB,
     'sops': CollectionsSOPS,
+    'usermanage': CollectionsUSERMANAGE,
 }

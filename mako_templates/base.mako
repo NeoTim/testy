@@ -1,3 +1,4 @@
+<%! from django.utils.translation import ugettext as _ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,7 @@
     <title>${APP_CODE}</title>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
+	<link rel="shortcut icon" href="${STATIC_URL}open/favicon.ico" type="image/x-icon">
 	<!-- bootstrap css -->
 	<link href="${REMOTE_STATIC_URL}v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
 	<!-- 禁止bootstrap 响应式 （app根据自身需求启用或禁止bootstrap响应式） -->
@@ -14,6 +16,9 @@
     <link href="${REMOTE_STATIC_URL}v3/assets/jquery-ui-1.11.0.custom/jquery-ui.min.css" rel="stylesheet">
     <!-- 平台cs	 -->
 	<link href="${REMOTE_STATIC_URL}v3/bk/css/bk.css" rel="stylesheet">
+	<!--自定义css-->
+	<link href="${STATIC_URL}open/css/bk.css?v=${STATIC_VERSION}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="${STATIC_URL}open/css/index.css?v=${STATIC_VERSION}">
     <style>
     	/*如果你需要给你的应用固定高度和宽度，请在这里修改*/
 		body {min-width:1202px;}
@@ -25,27 +30,40 @@
 	</style>
 	</%block>
 </head>
+
 <body>
     <!--顶部导航 Start-->
-	<nav class="navbar navbar-default king-horizontal-nav2" role="navigation">
+	<nav class="navbar navbar-default king-horizontal-nav2" role="navigation" style="margin-bottom: 0; border-bottom: 0">
 	    <div class="container" style="width: 100%;">
-	        <div class="navbar-header col-md-4 col-sm-4 col-xs-4 logo">
+	        <div class="navbar-header col-md-6 col-sm-6 col-xs-6 logo">
 	            <a class="navbar-brand" href="${SITE_URL}mako/" style="font-size:24px;padding-top: 15px;color: #438bca;">
-	                蓝鲸开发框架(mako模板)
+	                ${ _("蓝鲸开发框架(mako模板)")}
 	            </a>
 	        </div>
-	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-8 col-sm-8 col-xs-8" id="king-example-navbar-collapse-2" style="float:right;">
-	            <ul class="nav navbar-nav" style="float:right;">
+	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-6 col-sm-6 col-xs-6" id="king-example-navbar-collapse-2" style="float:right;">
+	            <ul class="nav navbar-nav navbar-right">
+                  <span class="avatar" style="cursor: default;">
+                    <img src="${STATIC_URL}open/img/getheadimg.jpg" width="40" alt="Avatar" class="avatar-img">
+                    % if request.user.is_superuser:
+                        <i class="crown"></i>
+                    % endif
+                    <span>${request.user.username}</span>
+                  </span>
+                </ul>
+				<ul class="nav navbar-nav" style="float:right;">
 					<%
-						home = contact = ''
+						home = dev_guide = contact = ''
 						relative_path = APP_PATH
 						if relative_path == SITE_URL + "mako/":
 							home = 'king-navbar-active'
+						elif relative_path.startswith(SITE_URL + "mako/dev-guide/"):
+                      		dev_guide = 'king-navbar-active'
 						elif relative_path == SITE_URL + "mako/contact/":
 							contact = 'king-navbar-active'
 					%>
-	                <li class="${home}"><a href="${SITE_URL}mako/"><span>首页</span></a></li>
-	                <li class="${contact}"><a href="${SITE_URL}mako/contact/"><span>联系我们</span></a></li>
+	                <li class="${home}"><a href="${SITE_URL}mako/"><span>${ _("首页")}</span></a></li>
+					<li class="${dev_guide}"><a href="${SITE_URL}mako/dev-guide/"><span>${ _("开发指引")}</span></a></li>
+                    <li class="${contact}"><a href="${SITE_URL}mako/contact/"><span>${ _("联系我们")}</span></a></li>
 	            </ul>
 	        </div>
 	    </div>
@@ -53,14 +71,25 @@
 	<!--顶部导航 End-->
 
     <!-- 固定宽度居中 start -->
-    <div class="container">
-    	<div class="">
-        	<%block name='content'></%block>
-    	</div>
-    </div>
+    <%block name='content'></%block>
     <!-- 固定宽度表单居中 end -->
-
+	<!-- 尾部声明 start -->
+    <div class="foot" id="footer">
+        <%block name='footerline'></%block>
+        <ul class="links ft">
+            <li>
+                <a id="contact_us" class="link">${ _("QQ咨询(800802001)")}</a>
+                | <a href="http://bbs.bk.tencent.com/forum.php" target="_blank" hotrep="hp.footer.feedback" class="link">${ _("蓝鲸论坛")}</a>
+                | <a href="http://bk.tencent.com/" target="_blank" hotrep="hp.footer.feedback" class="link">${ _("蓝鲸官网")}</a>
+                | <a href="${BK_URL}" target="_blank" hotrep="hp.footer.feedback" class="link">${ _("蓝鲸智云工作台")}</a>
+            </li>
+            <li><p class="copyright">Copyright © 2012-${NOW.year} Tencent BlueKing. All Rights Reserved.</p> </li>
+          	<li><p class="copyright">${ _("蓝鲸智云 版权所有")}</p> </li>
+        </ul>
+      </div>
+      <!-- 尾部声明 start -->
 </body>
+
 <%block name="base_js">
 <!-- jquery js  -->
 <script src="${REMOTE_STATIC_URL}v3/assets/js/jquery-1.10.2.min.js"></script>
