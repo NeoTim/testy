@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html>
 <head>
     {% block head %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ APP_CODE }}</title>
+    <link rel="icon" href="{{STATIC_URL}}open/favicon.ico" type="image/x-icon">
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 	<!-- bootstrap css -->
@@ -12,33 +14,63 @@
 	<link href="{{ REMOTE_STATIC_URL }}v3/assets/bootstrap-3.3.4/css/bootstrap_noresponsive.css" rel="stylesheet">
     <!-- jquery ui css-->
     <link href="{{ REMOTE_STATIC_URL }}v3/assets/jquery-ui-1.11.0.custom/jquery-ui.min.css" rel="stylesheet">
+    <!--自定义css-->
+	<link href="{{ STATIC_URL }}open/css/bk.css?v={{ STATIC_VERSION}}" rel="stylesheet">
     <!-- 平台cs	 -->
 	<link href="{{ REMOTE_STATIC_URL }}v3/bk/css/bk.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}open/css/index.css?v={{ STATIC_VERSION }}">
     <style>
     	/*如果你需要给你的应用固定高度和宽度，请在这里修改*/
 		body {min-width:1202px;}
 		.container{
 			width:auto;
 			min-width: 1200px;
-			max-width:1400px;
 		}
 	</style>
 	{% endblock %}
 </head>
+
 <body>
     <!--顶部导航 Start-->
-	<nav class="navbar navbar-default king-horizontal-nav2" role="navigation">
+    <nav class="navbar navbar-default king-horizontal-nav2" role="navigation" style="margin-bottom: 0; border-bottom: 0">
 	    <div class="container" style="width: 100%;">
-	        <div class="navbar-header col-md-4 col-sm-4 col-xs-4 logo">
+	        <div class="navbar-header col-md-6 col-sm-6 col-xs-6 logo">
 	            <a class="navbar-brand" href="{{ SITE_URL }}" style="font-size:24px;padding-top: 15px;color: #438bca;">
-	                蓝鲸开发框架(Django模板)
+	                {% trans '蓝鲸开发框架(Django模板)' %}
 	            </a>
 	        </div>
-	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-8 col-sm-8 col-xs-8" id="king-example-navbar-collapse-2" style="float:right;">
-	            <ul class="nav navbar-nav" style="float:right;">
+	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-6 col-sm-6 col-xs-6" id="king-example-navbar-collapse-2" style="float:right;">
+                <ul class="nav navbar-nav navbar-right">
+                  <span class="avatar" style="cursor: default;">
+                    <img src="{{ STATIC_URL }}open/img/getheadimg.jpg" width="40" alt="Avatar" class="avatar-img">
+                    {% if request.user.is_superuser %}
+                        <i class="crown"></i>
+                    {% endif %}
+                    <span>{{ request.user.username }}</span>
+                  </span>
+                </ul>
+                <ul class="nav navbar-nav" style="float:right;">
 					{% block navigation %}
-	                <li class=""><a href="{{ SITE_URL }}"><span>首页</span></a></li>
-	                <li class=""><a href="{{ SITE_URL }}contact/"><span>联系我们</span></a></li>
+	                <li id="home"><a href="{{ SITE_URL }}"><span>{% trans '首页' %}</span></a></li>
+                    <li id="guide"><a href="{{ SITE_URL }}dev-guide/"><span>{% trans '开发指引' %}</span></a></li>
+	                <li id="contact"><a href="{{ SITE_URL }}contact/"><span>{% trans '联系我们' %}</span></a></li>
+                    <li style='display: {{IS_DISPLAY_LANGUAGE_CHANGE}};'>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <span>{% trans "语言" %}</span>
+                        </a>
+                        <ul class="dropdown-menu" style=" left:0;right:auto;">
+                            <li onclick="change_language('zh-hans')">
+                                <a href="javascript:;">
+                                    简体中文
+                                </a>
+                            </li>
+                            <li onclick="change_language('en')">
+                                <a href="javascript:;">
+                                    English
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 					{% endblock %}
 	            </ul>
 	        </div>
@@ -47,13 +79,24 @@
 	<!--顶部导航 End-->
 
     <!-- 固定宽度居中 start -->
-    <div class="container">
-    	<div class="">
-        	{% block content %}{% endblock %}
-    	</div>
-    </div>
-    <!-- 固定宽度表单居中 end -->
+    {% block content %}{% endblock %}
 
+    <!-- 固定宽度表单居中 end -->
+    <!-- 尾部声明 start -->
+    <div class="foot" id="footer">
+        {% block footerline %} {% endblock %}
+        <ul class="links ft">
+            <li>
+                <a id="contact_us" class="link">{% trans 'QQ咨询(800802001)' %}</a>
+                | <a href="http://bbs.bk.tencent.com/forum.php" target="_blank" hotrep="hp.footer.feedback" class="link">{% trans '蓝鲸论坛' %}</a>
+                | <a href="http://bk.tencent.com/" target="_blank" hotrep="hp.footer.feedback" class="link">{% trans '蓝鲸官网' %}</a>
+                | <a href="{{ BK_URL }}" target="_blank" hotrep="hp.footer.feedback" class="link">{% trans '蓝鲸智云工作台' %}</a>
+            </li>
+            <li><p class="copyright">Copyright © 2012-{{NOW.year}} Tencent BlueKing. All Rights Reserved.</p> </li>
+          	<li><p class="copyright">{% trans '蓝鲸智云 版权所有' %}</p> </li>
+        </ul>
+      </div>
+      <!-- 尾部声明 start -->
 </body>
 {% block base_js %}
 <!-- jquery js  -->
@@ -79,7 +122,30 @@
 <script src="{{ REMOTE_STATIC_URL }}analysis.js?v={{ STATIC_VERSION }}"></script>
 <script src="{{ STATIC_URL }}account/login.js?v={{ STATIC_VERSION }}"></script>
 <script src="{{ STATIC_URL }}js/csrftoken.js?v={{ STATIC_VERSION }}"></script>
-<script src="{{STATIC_URL}}js/settings.js?v=${ STATIC_VERSION }"></script>
+
+<script>
+    var relative_path = "{{ APP_PATH }}";
+    console.log(relative_path);
+    if ( relative_path == site_url)
+        $('#home').addClass('king-navbar-active');
+    else if (relative_path == site_url + "dev-guide/")
+        $('#guide').addClass('king-navbar-active');
+    else if (relative_path == site_url + "contact/")
+        $('#contact').addClass('king-navbar-active');
+
+    function change_language(lang) {
+        $.ajax({
+            url: site_url + 'i18n/setlang/',
+            method: 'post',
+            data: {
+                'language': lang,
+            },
+            success: function (ret) {
+                window.location.reload()
+            }
+        })
+    }
+</script>
 
 {% endblock %}
 {% block extra_block %}

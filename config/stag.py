@@ -19,6 +19,10 @@ RUN_MODE = 'STAGING'
 
 # 预发布环境数据库可以在这里配置
 
+# 请注意：因为BK不支持private git，只能设置为publc。所以请勿在本项目里保存密码。以下密码公开无所谓，只能内网访问。
+# 为增加安全性，本项目设计为container模式，将BK的Python接口转换为更通用的跨语言API，所以具体业务会使用NodeJS（因为开发速度更快，代码重用度高）在private git里开发。因此本项目只做接口转换，不会包含具体业务。
+
+
 DATABASES.update(
     {
         'default': {
