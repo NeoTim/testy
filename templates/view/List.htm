@@ -1,0 +1,43 @@
+$Page('Menu.List.NavBtn',
+`<button ng-click="$parent.$$childTail.Delete()"
+  class="button button-fab button-fab-top-left expanded RedG spin i a5"></button>`);
+
+$Page('Menu.List.Main',
+`
+<pane title='{{"Tendis Cluster List"|Say}}'>
+  <scroll ng-class="{expanded:isExpanded}" class="animate-fade-slide-in padding" style="overflow: auto;">
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="Get()"></ion-refresher>
+    <button class="W90 GreenG" ng-click="Add()" Say>Add</button>
+    <ion-checkbox ng-model="sel.showTime">{{'Display Usage'|Say}}
+    </ion-checkbox>
+    <ion-checkbox ng-model="sel.showAssigner">{{'Display LoadBalancer'|Say}}
+    </ion-checkbox>
+    <list>
+      <item ng-repeat="e in data track by $index" class="item-remove-animate item-checkbox">
+        <input type="checkbox" ng-model="e.ok" class="checkbox" ng-click="Done(e)">
+        <div class="item-content" ng-click="Menu($event,$index)">
+          {{e}}</div>
+
+        <!-- <label>  <input type="checkbox" ng-model="sel.showEdit" class="item-checkbox" ng-click="Done(e)">
+ {{e.assigner?e.assigner+":":""}}{{e.name}}  </label> -->
+
+        <!-- style="padding:0px;" <ion-checkbox class="item-remove-animate" ng-click="Done(e)" ng-model="e.ok">{{e.assigner?e.assigner+":":""}}{{e.name}}
+          {{sel.showTime?ShowTime(e):''}}
+        </ion-checkbox> -->
+
+        <!-- <ion-option-button class="CalmG N0 button-icon" ng-click="Edit($index)"></ion-option-button>
+        <ion-option-button class="RedG a5 button-icon" ng-click="Delete($index,$event)"></ion-option-button>
+         -->
+        <div class="item-options Yu i padding" ng-click="Menu($event,$index)"></div>
+      </item>
+      <ion-infinite-scroll on-infinite="rs.Load()" ng-if="!(rs.end)" distance="10px"></ion-infinite-scroll>
+    </list>
+ 
+    <!-- ion-infinite-scroll 上拉加载数据指令 distance默认1% nf-if的值为false时，就禁止执行on-infinite  -->
+    <!-- <ion-infinite-scroll ng-if="!vm.loadEnd" i---mmediate-check="false" on-infinite="vm.loadMore()" d---istance="1%"></ion-infinite-scroll> -->
+  </scroll>
+
+  <button ng-click="Add()" class="button button-fab button-fab-bottom-right expanded GreenG spin i hV"></button>
+  <button ng-click="Search()" class="button button-fab button-fab-top-right expanded GreenG drop i I7"></button>
+</pane>
+`);
