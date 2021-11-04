@@ -1,0 +1,49 @@
+$Page('Menu',
+`<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="BB BlueG" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
+      <ion-nav-back-button class="no-text"></ion-nav-back-button>
+
+      <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear i Yu" menu-toggle="right"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="NavBtn"></ion-nav-view>
+    <ion-nav-view name="Main" ng-class="{expanded: isExpanded}"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="right">
+    <header class="dark-bg expanded">
+      <img src="res/tendis.svg" class="AS1 padding" style="max-height:85px;">
+      <!-- <span class="avatar" style="background: url('favicon.jpg'); background-size: cover;"></span> -->
+      <h2 class="BB" Say>Tendis Cluster</h2>
+    </header>
+
+    <scroll class="stable-bg has-expanded-header">
+<item class="item-md-label item-icon-right"> <select  onchange="TML.Say.Use(this.value)">
+      <option value="" selected>🇺🇸⇄🇨🇳 {{"Switch language"|Say}}</option>
+      <option value="en">🇺🇸 English </option>
+      <option value="zh">🇨🇳 中文 </option>
+   </select>  <i class="QU"></i></item>
+
+<!-- <a class="item-md-label" nav-clear menu-close ng-click="Main('GetTable',e.name)" ng-repeat="e in tableList">
+   {{e.name|Say}}({{e.name}})
+</a> 
+<a class=item-md-label nav-clear menu-close ng-click="Main('New')" nav-direction="back">
+    Add table
+</a>  -->
+<a class="item-md-label"  nav-clear menu-close ui-sref="Menu.List">
+<i class="e4"></i> {{"Tendis List"|Say}}
+</a>
+<a class="item-md-label" nav-clear menu-close ui-sref="Plan" nav-direction="forward">
+<i class="F9"></i> {{"Plan"|Say}}
+</a>
+<hr class=W90>
+<a class=item-md-label nav-clear menu-close ng-click="SignOut()" nav-direction="back">
+ <i class="dV"></i> {{"SignOut"|Say}}
+</a> 
+
+    </scroll>
+  </ion-side-menu>
+</ion-side-menus>
+`);

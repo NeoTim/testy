@@ -1,283 +1,90 @@
 <!DOCTYPE html>
-<!-- This file does not need to be changed. This file is the same in all our projects. -->
 <html>
-<title>DBAz</title>
-<style type="text/css">
-/* .item-checkbox .item-content {
-  padding-left: 32px;
-} */
-  .L,
-  .L div,
-  .L p {
-    position: absolute
-  }
-
-  .L {
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 99999;
-    background-color: rgba(0, 0, 0, .4)
-  }
-
-  .L>div {
-    width: 100px;
-    height: 100px;
-    padding: 50px;
-    border-radius: 7px;
-    background-color: rgba(0, 0, 0, .7);
-    font-size: 35px;
-    margin-top: -110px;
-    margin-left: -100px;
-    left: 50%;
-    top: 50%
-  }
-
-  .L>div>div {
-    width: 100px;
-    height: 100px;
-    top: 20px
-  }
-
-  .L>div p {
-    top: 105px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: #fff
-  }
-
-  .L>div>div:before {
-    content: '';
-    display: block;
-    margin: 0 auto;
-    width: 15%;
-    height: 15%;
-    background-color: #fff;
-    border-radius: 100%;
-    animation: AS2 .65s infinite ease-in-out both
-  }
-
-  .L>div>div:nth-child(2) {
-    transform: rotate(30deg)
-  }
-
-  .L>div>div:nth-child(3) {
-    transform: rotate(60deg)
-  }
-
-  .L>div>div:nth-child(4) {
-    transform: rotate(90deg)
-  }
-
-  .L>div>div:nth-child(5) {
-    transform: rotate(120deg)
-  }
-
-  .L>div>div:nth-child(6) {
-    transform: rotate(150deg)
-  }
-
-  .L>div>div:nth-child(7) {
-    transform: rotate(180deg)
-  }
-
-  .L>div>div:nth-child(8) {
-    transform: rotate(210deg)
-  }
-
-  .L>div>div:nth-child(9) {
-    transform: rotate(240deg)
-  }
-
-  .L>div>div:nth-child(10) {
-    transform: rotate(270deg)
-  }
-
-  .L>div>div:nth-child(11) {
-    transform: rotate(300deg)
-  }
-
-  .L>div>div:nth-child(12) {
-    transform: rotate(330deg)
-  }
-
-  .L>div>div:nth-child(2):before {
-    animation-delay: -.65s
-  }
-
-  .L>div>div:nth-child(3):before {
-    animation-delay: -.6s
-  }
-
-  .L>div>div:nth-child(4):before {
-    animation-delay: -.45s
-  }
-
-  .L>div>div:nth-child(5):before {
-    animation-delay: -.4s
-  }
-
-  .L>div>div:nth-child(6):before {
-    animation-delay: -.35s
-  }
-
-  .L>div>div:nth-child(7):before {
-    animation-delay: -.3s
-  }
-
-  .L>div>div:nth-child(8):before {
-    animation-delay: -.25s
-  }
-
-  .L>div>div:nth-child(9):before {
-    animation-delay: -.2s
-  }
-
-  .L>div>div:nth-child(10):before {
-    animation-delay: -.15s
-  }
-
-  .L>div>div:nth-child(11):before {
-    animation-delay: -.1s
-  }
-
-  .L>div>div:nth-child(12):before {
-    animation-delay: -50ms
-  }
-
-  @keyframes AS2 {
-    0% {
-      transform: scale(0)
-    }
-
-    40% {
-      transform: scale(1)
-    }
-
-    80% {
-      transform: scale(0)
-    }
-
-    100% {
-      transform: scale(0)
-    }
-/*
-    0%,
-    100%,
-    80% {
-      transform: scale(0)
-    }
-    40% {
-      transform: scale(1)
-    }*/
-  }
-</style>
-<div class="L">
-  <div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <p>Loading...</p>
-  </div>
-</div>
-
-<!-- Allows text in multiple languages -->
-<meta charset="utf-8">
-<!-- Define viewport's size and scale -->
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-<!-- Set up favicon -->
-<link rel="icon" id="favicon" href="favicon.ico" type="image/x-icon" />
-<meta property="og:image" content="favicon.jpg">
-<link rel="icon" type="image/png" href="favicon.jpg" sizes="1218x1218">
-<!-- <img src="favicon.jpg" style="max-width:100%; max-height:100%;"> -->
-<!-- Include CSS files-->
-<link rel="stylesheet" href="res/doc.css">
-<link rel="stylesheet" href="res/app.css">
-<link rel="stylesheet" href="res/md.css"><!-- Material Design -->
-<!-- Include JS files-->
-<script charset="UTF-8" src="res/tim.js"></script>
-<script charset="UTF-8" src="res/socket.io.js"></script>
-<script charset="UTF-8" src="res/md.t"></script><!-- Material Design -->
-<script charset="UTF-8" src="res/en.js"></script><!-- English language -->
-<script charset="UTF-8" src="res/zh.js"></script><!-- Chinese language -->
-<script charset="UTF-8" src="index.js"></script>
-<!-- cordova script (this will be a 404 during development) -->
+<head>
+    {% block head %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{{ APP_CODE }}</title>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+	<!-- bootstrap css -->
+	<link href="{{ REMOTE_STATIC_URL }}v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<!-- 禁止bootstrap 响应式 （app根据自身需求启用或禁止bootstrap响应式） -->
+	<link href="{{ REMOTE_STATIC_URL }}v3/assets/bootstrap-3.3.4/css/bootstrap_noresponsive.css" rel="stylesheet">
+    <!-- jquery ui css-->
+    <link href="{{ REMOTE_STATIC_URL }}v3/assets/jquery-ui-1.11.0.custom/jquery-ui.min.css" rel="stylesheet">
+    <!-- 平台cs	 -->
+	<link href="{{ REMOTE_STATIC_URL }}v3/bk/css/bk.css" rel="stylesheet">
+    <style>
+    	/*如果你需要给你的应用固定高度和宽度，请在这里修改*/
+		body {min-width:1202px;}
+		.container{
+			width:auto;
+			min-width: 1200px;
+			max-width:1400px;
+		}
+	</style>
+	{% endblock %}
 </head>
-<!-- bind app defined in js -->
-<ion-nav-view ng-app="TML"></ion-nav-view>
-  <script type="text/javascript">
-    var app = {
-      // Application Constructor
-      initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-      },
-      // deviceready Event Handler
-      // Bind any cordova events here. Common events are:
-      // 'pause', 'resume', etc.
-      onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-      },
+<body>
+    <!--顶部导航 Start-->
+	<nav class="navbar navbar-default king-horizontal-nav2" role="navigation">
+	    <div class="container" style="width: 100%;">
+	        <div class="navbar-header col-md-4 col-sm-4 col-xs-4 logo">
+	            <a class="navbar-brand" href="{{ SITE_URL }}" style="font-size:24px;padding-top: 15px;color: #438bca;">
+	                蓝鲸开发框架(Django模板)
+	            </a>
+	        </div>
+	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-8 col-sm-8 col-xs-8" id="king-example-navbar-collapse-2" style="float:right;">
+	            <ul class="nav navbar-nav" style="float:right;">
+					{% block navigation %}
+	                <li class=""><a href="{{ SITE_URL }}"><span>首页</span></a></li>
+	                <li class=""><a href="{{ SITE_URL }}contact/"><span>联系我们</span></a></li>
+					{% endblock %}
+	            </ul>
+	        </div>
+	    </div>
+	</nav>
+	<!--顶部导航 End-->
 
-      // Update DOM on a Received Event
-      receivedEvent: function(id) {
-        // var parentElement = document.getElementById(id);
-        // var listeningElement = parentElement.querySelector('.listening');
-        // var receivedElement = parentElement.querySelector('.received');
-        //
-        // listeningElement.setAttribute('style', 'display:none;');
-        // receivedElement.setAttribute('style', 'display:block;');
-        console.log('Received Event: ' + id);
-      }
-    };
+    <!-- 固定宽度居中 start -->
+    <div class="container">
+    	<div class="">
+        	{% block content %}{% endblock %}
+    	</div>
+    </div>
+    <!-- 固定宽度表单居中 end -->
 
-    app.initialize();
+</body>
+{% block base_js %}
+<!-- jquery js  -->
+<script src="{{ REMOTE_STATIC_URL }}v3/assets/js/jquery-1.10.2.min.js"></script>
+<script src="{{ REMOTE_STATIC_URL }}jquery/jquery.json-2.3.min.js"></script>
+<!-- 处理jquery兼容问题，jQuery Migrate（迁移）插件包含了1.6.4以来存在但1.9已不支持所有API -->
+<script src="{{ REMOTE_STATIC_URL }}v3/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<!-- bootstrap js  -->
+<script src="{{ REMOTE_STATIC_URL }}v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+<!-- jquery ui js-->
+<script src="{{ REMOTE_STATIC_URL }}v3/assets/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+<!-- 平台 js  -->
+<script src="{{ REMOTE_STATIC_URL }}v3/bk/js/bk.js"></script>
 
-    //   function loadScript(url, callback) {
-    //   var head = document.getElementsByTagName('head')[0];
-    //   var script = document.createElement('script');
-    //   script.type = 'text/javascript';
-    //   script.src = url;
-    //   script.onload = callback;
-    //   head.appendChild(script);
-    // }
+<!-- 这个是全局配置，如果需要在js中使用app_code和site_url,则这个javascript片段一定要保留 -->
+<script type="text/javascript">
+	var app_code = "{{ APP_CODE }}";			// 在蓝鲸系统里面注册的"应用编码"
+	var site_url = "{{ SITE_URL }}";			// app的url前缀,在ajax调用的时候，应该加上该前缀
+	var remote_static_url = "{{ REMOTE_STATIC_URL }}";   //远程资源链接，403页面需要，不要删除
+	var debug_mode = JSON.parse("{{ DEBUG }}");	// 是否调试模式
+</script>
+<!--统计js  勿删-->
+<script src="{{ REMOTE_STATIC_URL }}analysis.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{ STATIC_URL }}account/login.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{ STATIC_URL }}js/csrftoken.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{STATIC_URL}}js/settings.js?v=${ STATIC_VERSION }"></script>
 
-    //   // load socket.io after all cordova plugins are loaded
-    //  loadScript('https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js',
-    //);
-    //  }
-
-    document.addEventListener("deviceready", function(){console.log("deviceready");}, false);
-
-    // OnChat = msg => {
-    //   const {
-    //     user = {}
-    //   } = msg;
-    //   console.log(user.email, msg.text);
-    // };
-    //
-    // GetDB = async () => {
-
-    //   (await tim.X('user').Get()).data.forEach(u => console.log(u.email));
-    //   (await tim.X('info').Get()).data.forEach(u => console.log(u.title));
-    //
-    // };
-    //
-    // Send = text => {
-    //  tim.X('chat').New({text: text});
-    // };
-
-    // var vConsole = new VConsole();
-    // console.log('Hello world');
-  </script>
+{% endblock %}
+{% block extra_block %}
+<!--
+    这里放置子页面中附加内容，一般为js，注意子模版中的js如果使用到以上js库，必须放置在这里
+ -->
+{% endblock %}
 </html>

@@ -5,7 +5,7 @@
   "Say", ////Add multi-language for transation,
   "jszip.min"
 ].forEach(function(f) {
-      document.write('<script charset="UTF-8" src="config/' + f + '.js"></script>');
+      document.write('<script charset="UTF-8" src="{{STATIC_URL}}config/' + f + '.js"></script>');
 });
 
 // view files
@@ -13,6 +13,6 @@
 "List",
 "Plan"
 ].forEach(function(f) {
-    document.write('<script charset="UTF-8" src="view/' + f + '.js"></script>');
-    document.write('<script charset="UTF-8" src="view/' + f + '.htm"></script>');
+    document.write('<script charset="UTF-8" src="{{STATIC_URL}}view/' + f + '.js"></script>');
+    document.write('<script charset="UTF-8" src="{{STATIC_URL}}view/' + f + '.htm"></script>');
 });
