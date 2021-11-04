@@ -31,7 +31,12 @@
 	    <div class="container" style="width: 100%;">
 	        <div class="navbar-header col-md-4 col-sm-4 col-xs-4 logo">
 	            <a class="navbar-brand" href="{{ SITE_URL }}" style="font-size:24px;padding-top: 15px;color: #438bca;">
-					{{ SITE_URL }}    蓝鲸开发框架(Django模板)
+					{{ SITE_URL }}    <br>
+					{{ REMOTE_STATIC_URL }}<br>
+					<br>
+					{{ APP_CODE }}	<br>
+
+					{{ STATIC_VERSION }}
 	            </a>
 	        </div>
 	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-8 col-sm-8 col-xs-8" id="king-example-navbar-collapse-2" style="float:right;">
@@ -45,13 +50,18 @@
 	    </div>
 	</nav>
 	<!--顶部导航 End-->
-
+	{{ REMOTE_STATIC_URL }}
     <!-- 固定宽度居中 start -->
+	111111111
     <div class="container">
     	<div class="">
         	{% block content %}{% endblock %}
     	</div>
     </div>
+
+
+
+	222222
     <!-- 固定宽度表单居中 end -->
 
 </body>
