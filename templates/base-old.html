@@ -39,6 +39,21 @@
 					{{ STATIC_VERSION }}
 					<br>
 					{{STATIC_URL}}
+
+
+					context = {
+						'STATIC_URL': settings.STATIC_URL,                    # 本地静态文件访问
+						'APP_PATH': request.get_full_path(),                  # 当前页面，主要为了 login_required 做跳转用
+						'RUN_MODE': settings.RUN_MODE,                        # 运行模式
+						'APP_CODE': settings.APP_CODE,                        # 在蓝鲸系统中注册的 "应用编码"
+						'SITE_URL': settings.SITE_URL,                        # URL前缀
+						'REMOTE_STATIC_URL': settings.REMOTE_STATIC_URL,      # 远程静态资源 url
+						'STATIC_VERSION': settings.STATIC_VERSION,            # 静态资源版本号,用于指示浏览器更新缓存
+						'BK_URL': settings.BK_URL,                            # 蓝鲸平台 URL
+						'USERNAME': username,                                 # 用户名
+						'NICKNAME': nickname,                                 # 用户昵称
+						'AVATAR_URL': avatar_url,                             # 用户头像
+					}
 	            </a>
 	        </div>
 	        <div class="collapse navbar-collapse navbar-responsive-collapse col-md-8 col-sm-8 col-xs-8" id="king-example-navbar-collapse-2" style="float:right;">

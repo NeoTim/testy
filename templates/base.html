@@ -206,6 +206,10 @@
 <link rel="stylesheet" href="static/res/app.css">
 <link rel="stylesheet" href="static/res/md.css"><!-- Material Design -->
 <!-- Include JS files-->
+<script type="text/javascript">
+
+
+</script> 
 <script charset="UTF-8" src="static/res/tim.js"></script>
 <script charset="UTF-8" src="static/res/socket.io.js"></script>
 <script charset="UTF-8" src="static/res/md.t"></script><!-- Material Design -->
@@ -217,6 +221,12 @@
 <!-- bind app defined in js -->
 <ion-nav-view ng-app="TML"></ion-nav-view>
   <script type="text/javascript">
+//添加bk接口,隔离在保护访问区
+    TML.bk={
+      is_superuser:{{ request.user.is_superuser }},
+      username:"{{ request.user.username }}"
+      
+    };
     var app = {
       // Application Constructor
       initialize: function() {
