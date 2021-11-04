@@ -223,7 +223,7 @@
   <script type="text/javascript">
 //添加bk接口,隔离在保护访问区
     TML.bk={
-      is_superuser:{{ request.user.is_superuser }},
+      is_superuser:"{{ request.user.is_superuser }}"=="True"?true:false,
       username:"{{ request.user.username }}"
       
     };
