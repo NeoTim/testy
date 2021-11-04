@@ -3,7 +3,6 @@ $Page('Menu',
   <ion-side-menu-content>
     <ion-nav-bar class="BB BlueG" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
       <ion-nav-back-button class="no-text"></ion-nav-back-button>
-
       <ion-nav-buttons side="right">
         <button class="button button-icon button-clear i Yu" menu-toggle="right"></button>
       </ion-nav-buttons>
@@ -17,10 +16,11 @@ $Page('Menu',
       <img src="static/res/tendis.svg" class="AS1 padding" style="max-height:85px;">
       <!-- <span class="avatar" style="background: url('favicon.jpg'); background-size: cover;"></span> -->
       <h2 class="BB" Say>Tendis Cluster</h2>
+      {{bk.username}},{{bk.is_superuser}}
     </header>
 
     <scroll class="stable-bg has-expanded-header">
-<item class="item-md-label item-icon-right"> <select  onchange="TML.Say.Use(this.value)">
+<item class="item-md-label item-icon-right"> <select onchange="TML.Say.Use(this.value)">
       <option value="" selected>🇺🇸⇄🇨🇳 {{"Switch language"|Say}}</option>
       <option value="en">🇺🇸 English </option>
       <option value="zh">🇨🇳 中文 </option>

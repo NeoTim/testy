@@ -1,7 +1,7 @@
 $Do('Menu', function($page) {
 
   //$page.title=TML.Say("TodoTit");//.+"("+tim.io.io.uri+")";
-
+$page.bk=TML.bk;
 $page.SignOut=function(){
   tim.Logout();
   $page.$Go('Login');

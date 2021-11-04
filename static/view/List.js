@@ -53,12 +53,9 @@ $Do('Menu.List.Main',
       //     console.log(err);
       //     $.Err(err.message);
       //   })
-
     }
 
-
     $page.Search = function() {
-
       // if (Object.keys(tableObj).length>0) {
       //   value=JSON.stringify(tableObj).substr(1)
       //   .replace(/,/g,',\n').replace(/\}/g,',\n');
@@ -106,7 +103,6 @@ $Do('Menu.List.Main',
     };
 
     $page.CopyUrl = function() {
-
       $page.pop.hide();
       $.Edit({
         title: 'Task link',
@@ -116,8 +112,6 @@ $Do('Menu.List.Main',
         same: true,
         Call: function(value) {
           console.log(value);
-
-
         }
       });
     };
