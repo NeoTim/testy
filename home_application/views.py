@@ -16,3 +16,7 @@ def contact(request):
     联系我们
     """
     return render(request, 'home_application/contact.html')
+
+def hello(request):
+    return JsonResponse({"hello": "world"})
+
