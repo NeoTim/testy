@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import JsonResponse
