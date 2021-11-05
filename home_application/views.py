@@ -31,7 +31,8 @@ def list(request):
     names = [row[0] for row in cursor.fetchall()]
     db.close()
     s=JsonResponse({'names': names})
-    return s
+
+    return s.encode("utf-8")
     #JsonResponse({'names': names}).encode("utf-8").decode("unicode_escape")
 
  
