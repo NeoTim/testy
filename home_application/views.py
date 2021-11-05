@@ -32,7 +32,7 @@ def list(request):
     db.close()
     s=JsonResponse({'names': names})
 
-    return s
+    return s.decode('utf-8')
     #JsonResponse({'names': names}).encode("utf-8").decode("unicode_escape")
 
  
