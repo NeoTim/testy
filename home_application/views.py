@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -25,9 +26,11 @@ def hello(request):
 
 
 def list(request):
-    db = MySQLdb.connect(user='tim', db='DBAz', passwd='123456a@', host='172.16.20.46', charset='utf8')
+    db = MySQLdb.connect(user='tim', db='DBAz', passwd='123456a@', host='172.16.20.46', charset="utf8")
     cursor = db.cursor()
     cursor.execute('SELECT name FROM Tendis ORDER BY id')
     names = [row[0] for row in cursor.fetchall()]
     db.close()
     return JsonResponse({'names': names})
+
+
