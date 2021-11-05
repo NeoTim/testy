@@ -222,11 +222,10 @@
 <ion-nav-view ng-app="TML"></ion-nav-view>
   <script type="text/javascript">
 //添加bk接口,隔离在保护访问区
-    TML.bk={
-      is_superuser:"{{ request.user.is_superuser }}"=="True"?"Administrator":"Normal User",
-      username:"{{ request.user.username }}"
-      
-    };
+    TML.bk=window.top.BLUEKING||{};
+    TML.bk.is_superuser="{{ request.user.is_superuser }}"=="True"?"Administrator":"Normal User";
+    TML.bk.username="{{ request.user.username }}";
+
     var app = {
       // Application Constructor
       initialize: function() {
