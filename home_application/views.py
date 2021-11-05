@@ -30,6 +30,8 @@ def list(request):
     cursor.execute('SELECT name FROM Tendis ORDER BY id')
     names = [row[0] for row in cursor.fetchall()]
     db.close()
-    return JsonResponse({'names': names}).encode("utf-8").decode("unicode_escape")
+    s=JsonResponse({'names': names})
+    return s
+    #JsonResponse({'names': names}).encode("utf-8").decode("unicode_escape")
 
  
