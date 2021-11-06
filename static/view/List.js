@@ -4,7 +4,7 @@ $Do('Menu.List.Main',
   function($page) {
 
     $Timer(function() {
-    var cluster="欧洲datamore预发布(ssd17.datamore-EU-pre.lgameguigu.db.#50017)|zbintest(test.zbin.lgameguigu.db.#50018)|datamore预发布(ssd16.datamore-pre.lgameguigu.db.#50016)|法兰克福-datamore高配(ssd15.datamore-FKF.lgameguigu.db.#50015)|新加坡-硅谷-datamore应用指标相关(ssd14.datamoreAppSG.lgameguigu.db.#50014)|DataMore新加坡25TBQPS40万(ssd13.datamoreSG.lgameguigu.db.#50013)|gacc-好友关系链(ssd07.gaccchain.lgameguigu.db.#50007)|MSDK-token集群(ssd01.token.lgameguigu.db.#50001)|gacc-个人信息(ssd06.gaccperson.lgameguigu.db.#50006)|MSDK公告白名单集群(ssd03.white.lgameguigu.db.#50003)|MSDK公告集群(ssd02.gonggao.lgameguigu.db.#50002)|MSDK限频集群(ssd05.limit.lgameguigu.db.#50005)|MSDK云控模块(ssd00.yunkong.lgameguigu.db.#50000";
+    var cluster="\u6b27\u6d32datamore\u9884\u53d1\u5e03｜欧洲datamore预发布(ssd17.datamore-EU-pre.lgameguigu.db.#50017)|zbintest(test.zbin.lgameguigu.db.#50018)|datamore预发布(ssd16.datamore-pre.lgameguigu.db.#50016)|法兰克福-datamore高配(ssd15.datamore-FKF.lgameguigu.db.#50015)|新加坡-硅谷-datamore应用指标相关(ssd14.datamoreAppSG.lgameguigu.db.#50014)|DataMore新加坡25TBQPS40万(ssd13.datamoreSG.lgameguigu.db.#50013)|gacc-好友关系链(ssd07.gaccchain.lgameguigu.db.#50007)|MSDK-token集群(ssd01.token.lgameguigu.db.#50001)|gacc-个人信息(ssd06.gaccperson.lgameguigu.db.#50006)|MSDK公告白名单集群(ssd03.white.lgameguigu.db.#50003)|MSDK公告集群(ssd02.gonggao.lgameguigu.db.#50002)|MSDK限频集群(ssd05.limit.lgameguigu.db.#50005)|MSDK云控模块(ssd00.yunkong.lgameguigu.db.#50000";
     cluster=cluster.split("|");
     $page.data=cluster;
 
